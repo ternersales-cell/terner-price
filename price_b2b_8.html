@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terner Group — Прайс-лист</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef5f0;
+    --surface: #ffffff;
+    --surface2: #f4faf6;
+    --border: #cce3d4;
+    --accent: #1a7a40;
+    --accent-soft: #e8f5ed;
+    --accent2: #0ea371;
+    --accent2-soft: #edfaf4;
+    --danger: #dc2626;
+    --text: #12201a;
+    --text2: #4a5e52;
+    --text3: #8aa394;
+    --shadow: 0 1px 4px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(26,122,64,0.10);
+  }
+  .logo-block { display: flex; align-items: center; gap: 14px; }
+  .logo-img { height: 48px; width: auto; display: block; }
+  .contacts-bar { display: flex; align-items: center; gap: 20px; font-size: 12px; color: var(--text2); }
+  .contact-item { display: flex; align-items: center; gap: 5px; font-weight: 500; text-decoration: none; color: var(--text2); transition: color 0.15s; white-space: nowrap; }
+  .contact-item:hover { color: var(--accent); }
+  .contact-item svg { flex-shrink: 0; opacity: 0.85; transition: opacity 0.15s; }
+  .contact-item:hover svg { opacity: 1; }
+  @media (max-width: 900px) { .contacts-bar { display: none; } }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .rate-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-soft);
+    border: 1px solid #bfdbfe;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .rate-badge .label { font-family: 'Manrope', sans-serif; font-weight: 500; color: var(--text2); font-size: 12px; }
+  .cart-btn {
+    position: relative;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 8px 16px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  .cart-btn:hover { background: #1d4ed8; }
+  .cart-count {
+    background: #fff;
+    color: var(--accent);
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 1px 6px;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  /* MAIN LAYOUT */
+  .container { max-width: 1280px; margin: 0 auto; padding: 24px; }
+
+  /* FILTERS */
+  .filters-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .filters-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    margin-bottom: 12px;
+  }
+  .filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+  }
+  .filter-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  select, input[type="text"] {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239c9a94' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+  select:focus, input[type="text"]:focus { border-color: var(--accent); }
+  .filter-reset {
+    align-self: flex-end;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .filter-reset:hover { border-color: var(--danger); color: var(--danger); }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 0 4px;
+  }
+  .stats-count { font-size: 13px; color: var(--text2); }
+  .stats-count strong { color: var(--text); font-weight: 700; }
+
+  /* PRODUCT TABLE */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: var(--surface2);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text3);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  thead th:last-child { text-align: center; }
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #fafaf8; }
+  td {
+    padding: 10px 14px;
+    vertical-align: middle;
+    font-size: 13px;
+  }
+  .td-name { font-weight: 600; color: var(--text); max-width: 280px; }
+  .td-name .sub { font-size: 11px; font-weight: 400; color: var(--text3); margin-top: 2px; }
+  .td-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .td-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .td-discount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+  .badge-group {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* SIZE SELECTOR in table */
+  .size-select-wrap { display: flex; flex-direction: column; gap: 4px; min-width: 180px; }
+  .size-select-wrap select { font-size: 12px; padding: 6px 8px; }
+  .size-custom { display: flex; gap: 4px; }
+  .size-custom input {
+    width: 70px;
+    font-size: 12px;
+    padding: 5px 6px;
+    text-align: center;
+  }
+  .size-custom .sep { display: flex; align-items: center; color: var(--text3); font-size: 12px; padding: 0 2px; }
+  .piece-note { font-size: 10px; color: var(--accent); margin-top: 2px; }
+
+  /* QTY + ADD */
+  .add-cell { display: flex; align-items: center; gap: 8px; justify-content: center; }
+  .qty-input {
+    width: 56px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    padding: 6px 4px;
+  }
+  .add-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .add-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .add-btn:active { transform: translateY(0); }
+
+  /* LOADING / EMPTY */
+  .loading, .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text3);
+  }
+  .loading .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* CART DRAWER */
+  .drawer-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 200;
+    backdrop-filter: blur(2px);
+  }
+  .drawer-overlay.open { display: block; }
+  .drawer {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(540px, 100vw);
+    background: var(--surface);
+    z-index: 201;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .drawer-title { font-size: 17px; font-weight: 800; }
+  .drawer-close {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text2);
+    transition: all 0.15s;
+  }
+  .drawer-close:hover { background: #fee2e2; border-color: #fca5a5; color: var(--danger); }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 16px 24px; }
+  .cart-empty { text-align: center; padding: 48px 0; color: var(--text3); }
+  .cart-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cart-item:last-child { border-bottom: none; }
+  .cart-item-name { font-size: 13px; font-weight: 600; line-height: 1.4; }
+  .cart-item-details { font-size: 11px; color: var(--text3); margin-top: 3px; }
+  .cart-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .cart-item-price { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; }
+  .cart-item-remove {
+    background: none; border: none;
+    color: var(--text3); cursor: pointer;
+    font-size: 11px; padding: 2px 6px;
+    border-radius: 4px;
+    transition: color 0.15s;
+  }
+  .cart-item-remove:hover { color: var(--danger); }
+  .piece-tag {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-left: 4px;
+  }
+  .drawer-footer {
+    padding: 20px 24px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    background: var(--surface2);
+  }
+  .totals-block { margin-bottom: 16px; }
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .total-row.main {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+  }
+  .total-row .val { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+  .total-row.main .val { font-size: 18px; }
+  .pdf-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pdf-btn {
+    border: none;
+    border-radius: var(--radius);
+    padding: 11px 16px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .pdf-btn.client { background: var(--accent); color: #fff; }
+  .pdf-btn.client:hover { background: #1d4ed8; }
+  .pdf-btn.internal { background: var(--surface); border: 2px solid var(--border); color: var(--text); }
+  .pdf-btn.internal:hover { border-color: var(--accent); color: var(--accent); }
+  .pdf-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* PRINT / PDF styles */
+  @media print {
+    header, .filters-bar, .stats-bar, .drawer-overlay, .add-cell, thead th:last-child, .drawer { display: none !important; }
+    body { background: #fff; }
+    .table-wrap { box-shadow: none; border: none; }
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--text);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 999;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 768px) {
+    .container { padding: 12px; }
+    .filters-grid { grid-template-columns: 1fr 1fr; }
+    header { padding: 0 12px; }
+    .logo { font-size: 15px; }
+    td, th { padding: 8px 10px; }
+    .td-name { max-width: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <img class="logo-img" src="data:image/png;base64,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" alt="Terner Group">
+  </div>
+  <div class="contacts-bar">
+    <a class="contact-item" href="tel:0800441297">
+      <span>📞</span> 0 800 441 297
+    </a>
+    <div class="contact-item">
+      <span>🕐</span> Пн–Пт 09:00–18:00, Сб–Нд черговий
+    </div>
+    <a class="contact-item" href="https://ternergroup.com.ua" target="_blank">
+      <span>🌐</span> ternergroup.com.ua
+    </a>
+  </div>
+  <div class="header-right">
+    <div class="rate-badge">
+      <span class="label">€&nbsp;=</span>
+      <span id="rateDisplay">...</span>
+      <span style="font-size:11px;color:var(--text3)">грн</span>
+    </div>
+    <button class="cart-btn" onclick="toggleDrawer()">
+      🛒 Прорахунок
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<div class="container">
+  <!-- FILTERS -->
+  <div class="filters-bar">
+    <div class="filters-title">Фільтри</div>
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label>Пошук</label>
+        <input type="text" id="fSearch" placeholder="назва, бренд..." oninput="applyFilters()">
+      </div>
+      <div class="filter-group">
+        <label>Група</label>
+        <select id="fGroup" onchange="applyFilters()"><option value="">Всі</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Бренд</label>
+        <select id="fBrand" onchange="applyFilters()"><option value="">Всі</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Колір</label>
+        <select id="fColor" onchange="applyFilters()"><option value="">Всі</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Товщина, мм</label>
+        <select id="fThickness" onchange="applyFilters()"><option value="">Всі</option></select>
+      </div>
+      <div class="filter-group" style="display:flex;align-items:flex-end;">
+        <button class="filter-reset" onclick="resetFilters()">✕ Скинути</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-count">Показано: <strong id="visibleCount">0</strong> позицій</div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Назва</th>
+          <th>Група</th>
+          <th>Товщина</th>
+          <th>Вага/м²</th>
+          <th>Розмір</th>
+          <th>Ціна листа</th>
+          <th>Знижка</th>
+          <th>Ціна зі зниж.</th>
+          <th style="text-align:center">К-сть / Дія</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr><td colspan="9"><div class="loading"><div class="spinner"></div>Завантажуємо прайс...</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="overlay" onclick="toggleDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-title">📋 Прорахунок</div>
+    <button class="drawer-close" onclick="toggleDrawer()">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody">
+    <div class="cart-empty">Додайте позиції з прайсу</div>
+  </div>
+  <div class="drawer-footer">
+    <div class="totals-block" id="totalsBlock"></div>
+    <div class="pdf-buttons">
+      <button class="pdf-btn client" id="pdfClientBtn" onclick="generatePDF('client')" disabled>
+        📄 PDF для клієнта
+      </button>
+      <button class="pdf-btn internal" id="pdfInternalBtn" onclick="generatePDF('internal')" disabled>
+        🔒 Внутрішній PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+// ===================== CONFIG =====================
+// ====== ДАНІ ВБУДОВАНІ НАПРЯМУ (оновити: замінити EMBEDDED_PRODUCTS) ======
+const EMBEDDED_PRODUCTS = [{"id": "1", "name": "СПК SOTON ECO \"STANDART\" - 10 років прозорий 4,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON ECO \"STANDART\" - 10 років", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "5.62", "weight": "0.55", "ultra": "FALSE"}, {"id": "2", "name": "СПК SOTON ECO \"STANDART\" - 10 років прозорий 6,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON ECO \"STANDART\" - 10 років", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.19", "weight": "0.84", "ultra": "FALSE"}, {"id": "3", "name": "СПК SOTON ECO \"STANDART\" - 10 років прозорий 8,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON ECO \"STANDART\" - 10 років", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "9.61", "weight": "1.00", "ultra": "FALSE"}, {"id": "4", "name": "СПК SOTON ECO \"STANDART\" - 10 років прозорий 10,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON ECO \"STANDART\" - 10 років", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "10.60", "weight": "1.12", "ultra": "FALSE"}, {"id": "5", "name": "СПК SOTON ECO \"STANDART\" - 10 років кольоровий 4,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON ECO \"STANDART\" - 10 років", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "5.90", "weight": "0.55", "ultra": "FALSE"}, {"id": "6", "name": "СПК SOTON ECO \"STANDART\" - 10 років кольоровий 6,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON ECO \"STANDART\" - 10 років", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.60", "weight": "0.84", "ultra": "FALSE"}, {"id": "7", "name": "СПК SOTON ECO \"STANDART\" - 10 років кольоровий 8,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON ECO \"STANDART\" - 10 років", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "10.09", "weight": "1.00", "ultra": "FALSE"}, {"id": "8", "name": "СПК SOTON ECO \"STANDART\" - 10 років кольоровий 10,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON ECO \"STANDART\" - 10 років", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "11.13", "weight": "1.12", "ultra": "FALSE"}, {"id": "9", "name": "СПК SOTON NANO \"PREMIUM\" - 10 років прозорий 4,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON NANO \"PREMIUM\" - 10 років", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "5.92", "weight": "0.60", "ultra": "FALSE"}, {"id": "10", "name": "СПК SOTON NANO \"PREMIUM\" - 10 років прозорий 6,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON NANO \"PREMIUM\" - 10 років", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "9.02", "weight": "0.93", "ultra": "FALSE"}, {"id": "11", "name": "СПК SOTON NANO \"PREMIUM\" - 10 років прозорий 8,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON NANO \"PREMIUM\" - 10 років", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "10.51", "weight": "1.10", "ultra": "FALSE"}, {"id": "12", "name": "СПК SOTON NANO \"PREMIUM\" - 10 років прозорий 10,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON NANO \"PREMIUM\" - 10 років", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "11.74", "weight": "1.24", "ultra": "FALSE"}, {"id": "13", "name": "СПК SOTON NANO \"PREMIUM\" - 10 років кольоровий 4,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON NANO \"PREMIUM\" - 10 років", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "6.44", "weight": "0.60", "ultra": "FALSE"}, {"id": "14", "name": "СПК SOTON NANO \"PREMIUM\" - 10 років кольоровий 6,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON NANO \"PREMIUM\" - 10 років", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "9.34", "weight": "0.93", "ultra": "FALSE"}, {"id": "15", "name": "СПК SOTON NANO \"PREMIUM\" - 10 років кольоровий 8,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON NANO \"PREMIUM\" - 10 років", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "10.95", "weight": "1.10", "ultra": "FALSE"}, {"id": "16", "name": "СПК SOTON NANO \"PREMIUM\" - 10 років кольоровий 10,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON NANO \"PREMIUM\" - 10 років", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "12.20", "weight": "1.24", "ultra": "FALSE"}, {"id": "17", "name": "СПК SOTON \"ELITE\" - 15 років прозорий 4,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.22", "weight": "0.80", "ultra": "FALSE"}, {"id": "18", "name": "СПК SOTON \"ELITE\" - 15 років прозорий 6,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "12.79", "weight": "1.30", "ultra": "FALSE"}, {"id": "19", "name": "СПК SOTON \"ELITE\" - 15 років прозорий 8,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "14.54", "weight": "1.50", "ultra": "FALSE"}, {"id": "20", "name": "СПК SOTON \"ELITE\" - 15 років прозорий 10,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "16.34", "weight": "1.70", "ultra": "FALSE"}, {"id": "21", "name": "СПК SOTON \"ELITE\" - 15 років прозорий 16,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "прозорий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "22.88", "weight": "2.50", "ultra": "FALSE"}, {"id": "22", "name": "СПК SOTON \"ELITE\" - 15 років прозорий 20,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "прозорий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "27.28", "weight": "3.00", "ultra": "FALSE"}, {"id": "23", "name": "СПК SOTON \"ELITE\" - 15 років кольоровий 4,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "7.94", "weight": "0.80", "ultra": "FALSE"}, {"id": "24", "name": "СПК SOTON \"ELITE\" - 15 років кольоровий 6,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "13.24", "weight": "1.30", "ultra": "FALSE"}, {"id": "25", "name": "СПК SOTON \"ELITE\" - 15 років кольоровий 8,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.02", "weight": "1.50", "ultra": "FALSE"}, {"id": "26", "name": "СПК SOTON \"ELITE\" - 15 років кольоровий 10,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "16.83", "weight": "1.70", "ultra": "FALSE"}, {"id": "27", "name": "СПК SOTON \"ELITE\" - 15 років кольоровий 16,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "23.88", "weight": "2.50", "ultra": "FALSE"}, {"id": "28", "name": "СПК SOTON \"ELITE\" - 15 років кольоровий 20,00 мм", "group": "СПК", "country": "Україна", "brand": "SOTON \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "28.66", "weight": "3.00", "ultra": "FALSE"}, {"id": "29", "name": "СПК Soton Titan прозорий 8,00 мм", "group": "СПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "14.67", "weight": "1.55", "ultra": "FALSE"}, {"id": "30", "name": "СПК Soton Titan прозорий 10,00 мм", "group": "СПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "16.00", "weight": "1.70", "ultra": "FALSE"}, {"id": "31", "name": "СПК Soton Titan кольоровий 8,00 мм", "group": "СПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.12", "weight": "1.55", "ultra": "FALSE"}, {"id": "32", "name": "СПК Soton Titan кольоровий 10,00 мм", "group": "СПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "16.39", "weight": "1.70", "ultra": "FALSE"}, {"id": "33", "name": "МПК Soton Titan прозорий 2,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "22.79", "weight": "2.40", "ultra": "FALSE"}, {"id": "34", "name": "МПК Soton Titan прозорий 3,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "33.56", "weight": "3.60", "ultra": "FALSE"}, {"id": "35", "name": "МПК Soton Titan прозорий 4,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "44.06", "weight": "4.80", "ultra": "FALSE"}, {"id": "36", "name": "МПК Soton Titan прозорий 5,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "54.91", "weight": "6.00", "ultra": "FALSE"}, {"id": "37", "name": "МПК Soton Titan прозорий 6,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "65.89", "weight": "7.20", "ultra": "FALSE"}, {"id": "38", "name": "МПК Soton Titan прозорий 8,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "87.58", "weight": "9.60", "ultra": "FALSE"}, {"id": "39", "name": "МПК Soton Titan прозорий 10,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "109.13", "weight": "12.00", "ultra": "FALSE"}, {"id": "40", "name": "МПК Soton Titan прозорий 12,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "прозорий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "130.95", "weight": "14.40", "ultra": "FALSE"}, {"id": "41", "name": "МПК Soton Titan кольоровий 2,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "23.68", "weight": "2.40", "ultra": "FALSE"}, {"id": "42", "name": "МПК Soton Titan кольоровий 3,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "34.29", "weight": "3.60", "ultra": "FALSE"}, {"id": "43", "name": "МПК Soton Titan кольоровий 4,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "44.75", "weight": "4.80", "ultra": "FALSE"}, {"id": "44", "name": "МПК Soton Titan кольоровий 5,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "55.94", "weight": "6.00", "ultra": "FALSE"}, {"id": "45", "name": "МПК Soton Titan кольоровий 6,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "67.13", "weight": "7.20", "ultra": "FALSE"}, {"id": "46", "name": "МПК Soton Titan кольоровий 8,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "88.95", "weight": "9.60", "ultra": "FALSE"}, {"id": "47", "name": "МПК Soton Titan кольоровий 10,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "110.50", "weight": "12.00", "ultra": "FALSE"}, {"id": "48", "name": "МПК Soton Titan кольоровий 12,00 мм", "group": "МПК", "country": "Україна", "brand": "Soton Titan", "color": "кольоровий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "131.78", "weight": "14.40", "ultra": "FALSE"}, {"id": "49", "name": "СПК Terner Plast Standart - 10 років прозорий 3,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "прозорий", "thickness": "3.00", "width": "2100.00", "length": "6000.00", "priceEURO": "3.75", "weight": "0.42", "ultra": "FALSE"}, {"id": "50", "name": "СПК Terner Plast Standart - 10 років прозорий 4,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "4.47", "weight": "0.50", "ultra": "FALSE"}, {"id": "51", "name": "СПК Terner Plast Standart - 10 років прозорий 5,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "прозорий", "thickness": "5.00", "width": "2100.00", "length": "6000.00", "priceEURO": "6.52", "weight": "0.73", "ultra": "FALSE"}, {"id": "52", "name": "СПК Terner Plast Standart - 10 років прозорий 6,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "6.88", "weight": "0.77", "ultra": "FALSE"}, {"id": "53", "name": "СПК Terner Plast Standart - 10 років прозорий 7,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "прозорий", "thickness": "7.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.04", "weight": "0.90", "ultra": "FALSE"}, {"id": "54", "name": "СПК Terner Plast Standart - 10 років прозорий 8,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.93", "weight": "1.00", "ultra": "FALSE"}, {"id": "55", "name": "СПК Terner Plast Standart - 10 років прозорий 10,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "10.72", "weight": "1.20", "ultra": "FALSE"}, {"id": "56", "name": "СПК Terner Plast Standart - 10 років кольоровий 3,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "кольоровий", "thickness": "3.00", "width": "2100.00", "length": "6000.00", "priceEURO": "3.94", "weight": "0.42", "ultra": "FALSE"}, {"id": "57", "name": "СПК Terner Plast Standart - 10 років кольоровий 4,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "4.69", "weight": "0.50", "ultra": "FALSE"}, {"id": "58", "name": "СПК Terner Plast Standart - 10 років кольоровий 5,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "кольоровий", "thickness": "5.00", "width": "2100.00", "length": "6000.00", "priceEURO": "6.85", "weight": "0.73", "ultra": "FALSE"}, {"id": "59", "name": "СПК Terner Plast Standart - 10 років кольоровий 6,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "7.22", "weight": "0.77", "ultra": "FALSE"}, {"id": "60", "name": "СПК Terner Plast Standart - 10 років кольоровий 7,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "кольоровий", "thickness": "7.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.44", "weight": "0.90", "ultra": "FALSE"}, {"id": "61", "name": "СПК Terner Plast Standart - 10 років кольоровий 8,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "9.38", "weight": "1.00", "ultra": "FALSE"}, {"id": "62", "name": "СПК Terner Plast Standart - 10 років кольоровий 10,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Standart - 10 років", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "11.26", "weight": "1.20", "ultra": "FALSE"}, {"id": "63", "name": "СПК Terner Plast Premium - 10 років прозорий 4,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "5.36", "weight": "0.60", "ultra": "FALSE"}, {"id": "64", "name": "СПК Terner Plast Premium - 10 років прозорий 6,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "7.59", "weight": "0.85", "ultra": "FALSE"}, {"id": "65", "name": "СПК Terner Plast Premium - 10 років прозорий 8,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "9.83", "weight": "1.10", "ultra": "FALSE"}, {"id": "66", "name": "СПК Terner Plast Premium - 10 років прозорий 10,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "11.61", "weight": "1.30", "ultra": "FALSE"}, {"id": "67", "name": "СПК Terner Plast Premium - 10 років прозорий 16,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "прозорий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "20.55", "weight": "2.30", "ultra": "FALSE"}, {"id": "68", "name": "СПК Terner Plast Premium - 10 років прозорий 16,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "прозорий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "21.44", "weight": "2.40", "ultra": "FALSE"}, {"id": "69", "name": "СПК Terner Plast Premium - 10 років прозорий 20,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "прозорий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "24.12", "weight": "2.70", "ultra": "FALSE"}, {"id": "70", "name": "СПК Terner Plast Premium - 10 років прозорий 25,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "прозорий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "28.59", "weight": "3.20", "ultra": "FALSE"}, {"id": "71", "name": "СПК Terner Plast Premium - 10 років кольоровий 4,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "5.63", "weight": "0.60", "ultra": "FALSE"}, {"id": "72", "name": "СПК Terner Plast Premium - 10 років кольоровий 6,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "7.97", "weight": "0.85", "ultra": "FALSE"}, {"id": "73", "name": "СПК Terner Plast Premium - 10 років кольоровий 8,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "10.32", "weight": "1.10", "ultra": "FALSE"}, {"id": "74", "name": "СПК Terner Plast Premium - 10 років кольоровий 10,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "12.19", "weight": "1.30", "ultra": "FALSE"}, {"id": "75", "name": "СПК Terner Plast Premium - 10 років кольоровий 16,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "кольоровий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "21.57", "weight": "2.30", "ultra": "FALSE"}, {"id": "76", "name": "СПК Terner Plast Premium - 10 років кольоровий 16,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "кольоровий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "22.51", "weight": "2.40", "ultra": "FALSE"}, {"id": "77", "name": "СПК Terner Plast Premium - 10 років кольоровий 20,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "кольоровий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "25.32", "weight": "2.70", "ultra": "FALSE"}, {"id": "78", "name": "СПК Terner Plast Premium - 10 років кольоровий 25,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Premium - 10 років", "color": "кольоровий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "30.01", "weight": "3.20", "ultra": "FALSE"}, {"id": "79", "name": "СПК Terner Plast Elite - 15 років прозорий 4,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "6.25", "weight": "0.70", "ultra": "FALSE"}, {"id": "80", "name": "СПК Terner Plast Elite - 15 років прозорий 6,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "10.72", "weight": "1.20", "ultra": "FALSE"}, {"id": "81", "name": "СПК Terner Plast Elite - 15 років прозорий 8,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "12.95", "weight": "1.45", "ultra": "FALSE"}, {"id": "82", "name": "СПК Terner Plast Elite - 15 років прозорий 10,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.19", "weight": "1.70", "ultra": "FALSE"}, {"id": "83", "name": "СПК Terner Plast Elite - 15 років прозорий 16,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "прозорий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "20.55", "weight": "2.30", "ultra": "FALSE"}, {"id": "84", "name": "СПК Terner Plast Elite - 15 років прозорий 20,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "прозорий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "26.80", "weight": "3.00", "ultra": "FALSE"}, {"id": "85", "name": "СПК Terner Plast Elite - 15 років прозорий 25,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "прозорий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "31.27", "weight": "3.50", "ultra": "FALSE"}, {"id": "86", "name": "СПК Terner Plast Elite - 15 років кольоровий 4,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "6.57", "weight": "0.70", "ultra": "FALSE"}, {"id": "87", "name": "СПК Terner Plast Elite - 15 років кольоровий 6,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "11.26", "weight": "1.20", "ultra": "FALSE"}, {"id": "88", "name": "СПК Terner Plast Elite - 15 років кольоровий 8,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "13.60", "weight": "1.45", "ultra": "FALSE"}, {"id": "89", "name": "СПК Terner Plast Elite - 15 років кольоровий 10,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.95", "weight": "1.70", "ultra": "FALSE"}, {"id": "90", "name": "СПК Terner Plast Elite - 15 років кольоровий 16,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "кольоровий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "21.57", "weight": "2.30", "ultra": "FALSE"}, {"id": "91", "name": "СПК Terner Plast Elite - 15 років кольоровий 20,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "кольоровий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "28.14", "weight": "3.00", "ultra": "FALSE"}, {"id": "92", "name": "СПК Terner Plast Elite - 15 років кольоровий 25,00 мм", "group": "СПК", "country": "Сербія", "brand": "Terner Plast Elite - 15 років", "color": "кольоровий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "32.83", "weight": "3.50", "ultra": "FALSE"}, {"id": "93", "name": "МПК Standart - 15 років прозорий 1,80 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "прозорий", "thickness": "1.80", "width": "2050.00", "length": "3050.00", "priceEURO": "18.99", "weight": "2.16", "ultra": "FALSE"}, {"id": "94", "name": "МПК Standart - 15 років прозорий 2,70 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "прозорий", "thickness": "2.70", "width": "2050.00", "length": "3050.00", "priceEURO": "28.49", "weight": "3.24", "ultra": "FALSE"}, {"id": "95", "name": "МПК Standart - 15 років прозорий 3,60 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "прозорий", "thickness": "3.60", "width": "2050.00", "length": "3050.00", "priceEURO": "37.99", "weight": "4.32", "ultra": "FALSE"}, {"id": "96", "name": "МПК Standart - 15 років прозорий 4,50 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "прозорий", "thickness": "4.50", "width": "2050.00", "length": "3050.00", "priceEURO": "47.48", "weight": "5.40", "ultra": "FALSE"}, {"id": "97", "name": "МПК Standart - 15 років прозорий 5,40 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "прозорий", "thickness": "5.40", "width": "2050.00", "length": "3050.00", "priceEURO": "56.98", "weight": "6.48", "ultra": "FALSE"}, {"id": "98", "name": "МПК Standart - 15 років прозорий 7,20 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "прозорий", "thickness": "7.20", "width": "2050.00", "length": "3050.00", "priceEURO": "75.97", "weight": "8.64", "ultra": "FALSE"}, {"id": "99", "name": "МПК Standart - 15 років прозорий 9,00 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "прозорий", "thickness": "9.00", "width": "2050.00", "length": "3050.00", "priceEURO": "94.97", "weight": "10.80", "ultra": "FALSE"}, {"id": "100", "name": "МПК Standart - 15 років прозорий 10,80 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "прозорий", "thickness": "10.80", "width": "2050.00", "length": "3050.00", "priceEURO": "113.96", "weight": "12.96", "ultra": "FALSE"}, {"id": "101", "name": "МПК Standart - 15 років кольоровий 1,80 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "кольоровий", "thickness": "1.80", "width": "2050.00", "length": "3050.00", "priceEURO": "19.94", "weight": "2.16", "ultra": "FALSE"}, {"id": "102", "name": "МПК Standart - 15 років кольоровий 2,70 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "кольоровий", "thickness": "2.70", "width": "2050.00", "length": "3050.00", "priceEURO": "29.91", "weight": "3.24", "ultra": "FALSE"}, {"id": "103", "name": "МПК Standart - 15 років кольоровий 3,60 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "кольоровий", "thickness": "3.60", "width": "2050.00", "length": "3050.00", "priceEURO": "39.89", "weight": "4.32", "ultra": "FALSE"}, {"id": "104", "name": "МПК Standart - 15 років кольоровий 4,50 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "кольоровий", "thickness": "4.50", "width": "2050.00", "length": "3050.00", "priceEURO": "49.86", "weight": "5.40", "ultra": "FALSE"}, {"id": "105", "name": "МПК Standart - 15 років кольоровий 5,40 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "кольоровий", "thickness": "5.40", "width": "2050.00", "length": "3050.00", "priceEURO": "59.83", "weight": "6.48", "ultra": "FALSE"}, {"id": "106", "name": "МПК Standart - 15 років кольоровий 7,20 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "кольоровий", "thickness": "7.20", "width": "2050.00", "length": "3050.00", "priceEURO": "79.77", "weight": "8.64", "ultra": "FALSE"}, {"id": "107", "name": "МПК Standart - 15 років кольоровий 9,00 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "кольоровий", "thickness": "9.00", "width": "2050.00", "length": "3050.00", "priceEURO": "99.72", "weight": "10.80", "ultra": "FALSE"}, {"id": "108", "name": "МПК Standart - 15 років кольоровий 10,80 мм", "group": "МПК", "country": "Сербія", "brand": "Standart - 15 років", "color": "кольоровий", "thickness": "10.80", "width": "2050.00", "length": "3050.00", "priceEURO": "119.66", "weight": "12.96", "ultra": "FALSE"}, {"id": "109", "name": "МПК Premium - 15 років прозорий 1,90 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "прозорий", "thickness": "1.90", "width": "2050.00", "length": "3050.00", "priceEURO": "20.05", "weight": "2.28", "ultra": "FALSE"}, {"id": "110", "name": "МПК Premium - 15 років прозорий 2,85 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "прозорий", "thickness": "2.85", "width": "2050.00", "length": "3050.00", "priceEURO": "30.07", "weight": "3.42", "ultra": "FALSE"}, {"id": "111", "name": "МПК Premium - 15 років прозорий 3,80 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "прозорий", "thickness": "3.80", "width": "2050.00", "length": "3050.00", "priceEURO": "40.10", "weight": "4.56", "ultra": "FALSE"}, {"id": "112", "name": "МПК Premium - 15 років прозорий 4,80 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "прозорий", "thickness": "4.80", "width": "2050.00", "length": "3050.00", "priceEURO": "50.12", "weight": "5.70", "ultra": "FALSE"}, {"id": "113", "name": "МПК Premium - 15 років прозорий 5,70 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "прозорий", "thickness": "5.70", "width": "2050.00", "length": "3050.00", "priceEURO": "60.15", "weight": "6.84", "ultra": "FALSE"}, {"id": "114", "name": "МПК Premium - 15 років прозорий 7,60 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "прозорий", "thickness": "7.60", "width": "2050.00", "length": "3050.00", "priceEURO": "80.20", "weight": "9.12", "ultra": "FALSE"}, {"id": "115", "name": "МПК Premium - 15 років прозорий 9,50 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "прозорий", "thickness": "9.50", "width": "2050.00", "length": "3050.00", "priceEURO": "100.24", "weight": "11.40", "ultra": "FALSE"}, {"id": "116", "name": "МПК Premium - 15 років прозорий 11,40 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "прозорий", "thickness": "11.40", "width": "2050.00", "length": "3050.00", "priceEURO": "120.29", "weight": "13.68", "ultra": "FALSE"}, {"id": "117", "name": "МПК Premium - 15 років кольоровий 1,90 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "кольоровий", "thickness": "1.90", "width": "2050.00", "length": "3050.00", "priceEURO": "21.05", "weight": "2.28", "ultra": "FALSE"}, {"id": "118", "name": "МПК Premium - 15 років кольоровий 2,85 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "кольоровий", "thickness": "2.85", "width": "2050.00", "length": "3050.00", "priceEURO": "31.58", "weight": "3.42", "ultra": "FALSE"}, {"id": "119", "name": "МПК Premium - 15 років кольоровий 3,80 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "кольоровий", "thickness": "3.80", "width": "2050.00", "length": "3050.00", "priceEURO": "42.10", "weight": "4.56", "ultra": "FALSE"}, {"id": "120", "name": "МПК Premium - 15 років кольоровий 4,80 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "кольоровий", "thickness": "4.80", "width": "2050.00", "length": "3050.00", "priceEURO": "46.04", "weight": "5.70", "ultra": "FALSE"}, {"id": "121", "name": "МПК Premium - 15 років кольоровий 5,70 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "кольоровий", "thickness": "5.70", "width": "2050.00", "length": "3050.00", "priceEURO": "63.15", "weight": "6.84", "ultra": "FALSE"}, {"id": "122", "name": "МПК Premium - 15 років кольоровий 7,60 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "кольоровий", "thickness": "7.60", "width": "2050.00", "length": "3050.00", "priceEURO": "84.20", "weight": "9.12", "ultra": "FALSE"}, {"id": "123", "name": "МПК Premium - 15 років кольоровий 9,50 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "кольоровий", "thickness": "9.50", "width": "2050.00", "length": "3050.00", "priceEURO": "105.26", "weight": "11.40", "ultra": "FALSE"}, {"id": "124", "name": "МПК Premium - 15 років кольоровий 11,40 мм", "group": "МПК", "country": "Сербія", "brand": "Premium - 15 років", "color": "кольоровий", "thickness": "11.40", "width": "2050.00", "length": "3050.00", "priceEURO": "126.31", "weight": "13.68", "ultra": "FALSE"}, {"id": "125", "name": "МПК Terner Plast Elite прозорий 2,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "21.10", "weight": "2.40", "ultra": "FALSE"}, {"id": "126", "name": "МПК Terner Plast Elite прозорий 2,75 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "2.75", "width": "2050.00", "length": "3050.00", "priceEURO": "29.02", "weight": "3.30", "ultra": "FALSE"}, {"id": "127", "name": "МПК Terner Plast Elite прозорий 3,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "31.66", "weight": "3.60", "ultra": "FALSE"}, {"id": "128", "name": "МПК Terner Plast Elite прозорий 3,75 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "3.75", "width": "2050.00", "length": "3050.00", "priceEURO": "39.57", "weight": "4.50", "ultra": "FALSE"}, {"id": "129", "name": "МПК Terner Plast Elite прозорий 4,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "42.21", "weight": "4.80", "ultra": "FALSE"}, {"id": "130", "name": "МПК Terner Plast Elite прозорий 5,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "52.76", "weight": "6.00", "ultra": "FALSE"}, {"id": "131", "name": "МПК Terner Plast Elite прозорий 6,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "63.31", "weight": "7.20", "ultra": "FALSE"}, {"id": "132", "name": "МПК Terner Plast Elite прозорий 8,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "84.42", "weight": "9.60", "ultra": "FALSE"}, {"id": "133", "name": "МПК Terner Plast Elite прозорий 10,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "105.52", "weight": "12.00", "ultra": "FALSE"}, {"id": "134", "name": "МПК Terner Plast Elite прозорий 12,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "прозорий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "126.62", "weight": "14.40", "ultra": "FALSE"}, {"id": "135", "name": "МПК Terner Plast Elite кольоровий 2,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "22.16", "weight": "2.40", "ultra": "FALSE"}, {"id": "136", "name": "МПК Terner Plast Elite кольоровий 2,75 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "2.75", "width": "2050.00", "length": "3050.00", "priceEURO": "30.47", "weight": "3.30", "ultra": "FALSE"}, {"id": "137", "name": "МПК Terner Plast Elite кольоровий 3,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "33.24", "weight": "3.60", "ultra": "FALSE"}, {"id": "138", "name": "МПК Terner Plast Elite кольоровий 3,75 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "3.75", "width": "2050.00", "length": "3050.00", "priceEURO": "41.55", "weight": "4.50", "ultra": "FALSE"}, {"id": "139", "name": "МПК Terner Plast Elite кольоровий 4,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "44.32", "weight": "4.80", "ultra": "FALSE"}, {"id": "140", "name": "МПК Terner Plast Elite кольоровий 5,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "55.40", "weight": "6.00", "ultra": "FALSE"}, {"id": "141", "name": "МПК Terner Plast Elite кольоровий 6,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "66.48", "weight": "7.20", "ultra": "FALSE"}, {"id": "142", "name": "МПК Terner Plast Elite кольоровий 8,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "88.64", "weight": "9.60", "ultra": "FALSE"}, {"id": "143", "name": "МПК Terner Plast Elite кольоровий 10,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "110.80", "weight": "12.00", "ultra": "FALSE"}, {"id": "144", "name": "МПК Terner Plast Elite кольоровий 12,00 мм", "group": "МПК", "country": "Сербія", "brand": "Terner Plast Elite", "color": "кольоровий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "132.95", "weight": "14.40", "ultra": "FALSE"}, {"id": "145", "name": "Акрил NUDEC прозорий 1,50 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "1.50", "width": "2050.00", "length": "3050.00", "priceEURO": "18.01", "weight": "1.79", "ultra": "FALSE"}, {"id": "146", "name": "Акрил NUDEC прозорий 1,80 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "1.80", "width": "2050.00", "length": "3050.00", "priceEURO": "20.03", "weight": "2.14", "ultra": "FALSE"}, {"id": "147", "name": "Акрил NUDEC прозорий 2,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "22.27", "weight": "2.38", "ultra": "FALSE"}, {"id": "148", "name": "Акрил NUDEC прозорий 2,60 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "2.60", "width": "2050.00", "length": "3050.00", "priceEURO": "28.92", "weight": "3.09", "ultra": "FALSE"}, {"id": "149", "name": "Акрил NUDEC прозорий 3,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "33.41", "weight": "3.57", "ultra": "FALSE"}, {"id": "150", "name": "Акрил NUDEC прозорий 3,60 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "3.60", "width": "2050.00", "length": "3050.00", "priceEURO": "40.05", "weight": "4.28", "ultra": "FALSE"}, {"id": "151", "name": "Акрил NUDEC прозорий 4,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "44.55", "weight": "4.76", "ultra": "FALSE"}, {"id": "152", "name": "Акрил NUDEC прозорий 5,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "55.68", "weight": "5.95", "ultra": "FALSE"}, {"id": "153", "name": "Акрил NUDEC прозорий 6,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "66.82", "weight": "7.14", "ultra": "FALSE"}, {"id": "154", "name": "Акрил NUDEC прозорий 8,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "89.09", "weight": "9.52", "ultra": "FALSE"}, {"id": "155", "name": "Акрил NUDEC прозорий 10,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "111.36", "weight": "11.90", "ultra": "FALSE"}, {"id": "156", "name": "Акрил NUDEC прозорий 12,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "133.64", "weight": "14.28", "ultra": "FALSE"}, {"id": "157", "name": "Акрил NUDEC прозорий 15,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "15.00", "width": "2050.00", "length": "3050.00", "priceEURO": "167.05", "weight": "17.85", "ultra": "FALSE"}, {"id": "158", "name": "Акрил NUDEC кольоровий 1,50 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "1.50", "width": "2050.00", "length": "3050.00", "priceEURO": "18.91", "weight": "1.79", "ultra": "FALSE"}, {"id": "159", "name": "Акрил NUDEC кольоровий 1,80 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "1.80", "width": "2050.00", "length": "3050.00", "priceEURO": "21.03", "weight": "2.14", "ultra": "FALSE"}, {"id": "160", "name": "Акрил NUDEC кольоровий 2,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "23.39", "weight": "2.38", "ultra": "FALSE"}, {"id": "161", "name": "Акрил NUDEC кольоровий 2,70 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "2.70", "width": "2050.00", "length": "3050.00", "priceEURO": "30.36", "weight": "3.21", "ultra": "FALSE"}, {"id": "162", "name": "Акрил NUDEC кольоровий 3,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "35.08", "weight": "3.57", "ultra": "FALSE"}, {"id": "163", "name": "Акрил NUDEC кольоровий 3,60 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "3.60", "width": "2050.00", "length": "3050.00", "priceEURO": "42.06", "weight": "4.28", "ultra": "FALSE"}, {"id": "164", "name": "Акрил NUDEC кольоровий 4,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "46.77", "weight": "4.76", "ultra": "FALSE"}, {"id": "165", "name": "Акрил NUDEC кольоровий 5,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "58.47", "weight": "5.95", "ultra": "FALSE"}, {"id": "166", "name": "Акрил NUDEC кольоровий 6,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "70.16", "weight": "7.14", "ultra": "FALSE"}, {"id": "167", "name": "Акрил NUDEC кольоровий 8,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "93.55", "weight": "9.52", "ultra": "FALSE"}, {"id": "168", "name": "Акрил NUDEC кольоровий 10,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "116.93", "weight": "11.90", "ultra": "FALSE"}, {"id": "169", "name": "Акрил NUDEC кольоровий 12,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "140.32", "weight": "14.28", "ultra": "FALSE"}, {"id": "170", "name": "Акрил NUDEC кольоровий 15,00 мм", "group": "Акрил", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "15.00", "width": "2050.00", "length": "3050.00", "priceEURO": "175.40", "weight": "17.85", "ultra": "FALSE"}, {"id": "171", "name": "МПК NUDEC прозорий 2,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "23.82", "weight": "2.40", "ultra": "FALSE"}, {"id": "172", "name": "МПК NUDEC прозорий 3,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "35.73", "weight": "3.60", "ultra": "FALSE"}, {"id": "173", "name": "МПК NUDEC прозорий 4,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "47.64", "weight": "4.80", "ultra": "FALSE"}, {"id": "174", "name": "МПК NUDEC прозорий 5,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "59.55", "weight": "6.00", "ultra": "FALSE"}, {"id": "175", "name": "МПК NUDEC прозорий 6,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "71.46", "weight": "7.20", "ultra": "FALSE"}, {"id": "176", "name": "МПК NUDEC прозорий 8,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "95.28", "weight": "9.60", "ultra": "FALSE"}, {"id": "177", "name": "МПК NUDEC прозорий 10,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "119.11", "weight": "12.00", "ultra": "FALSE"}, {"id": "178", "name": "МПК NUDEC прозорий 12,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "142.93", "weight": "14.40", "ultra": "FALSE"}, {"id": "179", "name": "МПК NUDEC прозорий 15,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "прозорий", "thickness": "15.00", "width": "2050.00", "length": "3050.00", "priceEURO": "178.66", "weight": "18.00", "ultra": "FALSE"}, {"id": "180", "name": "МПК NUDEC кольоровий 2,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "25.01", "weight": "2.40", "ultra": "FALSE"}, {"id": "181", "name": "МПК NUDEC кольоровий 3,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "37.52", "weight": "3.60", "ultra": "FALSE"}, {"id": "182", "name": "МПК NUDEC кольоровий 4,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "50.02", "weight": "4.80", "ultra": "FALSE"}, {"id": "183", "name": "МПК NUDEC кольоровий 5,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "62.53", "weight": "6.00", "ultra": "FALSE"}, {"id": "184", "name": "МПК NUDEC кольоровий 6,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "75.04", "weight": "7.20", "ultra": "FALSE"}, {"id": "185", "name": "МПК NUDEC кольоровий 8,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "100.05", "weight": "9.60", "ultra": "FALSE"}, {"id": "186", "name": "МПК NUDEC кольоровий 10,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "125.06", "weight": "12.00", "ultra": "FALSE"}, {"id": "187", "name": "МПК NUDEC кольоровий 12,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "150.07", "weight": "14.40", "ultra": "FALSE"}, {"id": "188", "name": "МПК NUDEC кольоровий 15,00 мм", "group": "МПК", "country": "Іспанія", "brand": "NUDEC", "color": "кольоровий", "thickness": "15.00", "width": "2050.00", "length": "3050.00", "priceEURO": "187.59", "weight": "18.00", "ultra": "FALSE"}, {"id": "189", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. прозорий 4,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "7.85", "weight": "0.70", "ultra": "FALSE"}, {"id": "190", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. прозорий 6,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "12.33", "weight": "1.10", "ultra": "FALSE"}, {"id": "191", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. прозорий 8,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "14.57", "weight": "1.30", "ultra": "FALSE"}, {"id": "192", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. прозорий 10,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "16.82", "weight": "1.50", "ultra": "FALSE"}, {"id": "193", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. прозорий 16,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "прозорий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "25.78", "weight": "2.30", "ultra": "FALSE"}, {"id": "194", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. прозорий 20,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "прозорий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "31.39", "weight": "2.80", "ultra": "FALSE"}, {"id": "195", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. прозорий 25,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "прозорий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "33.63", "weight": "3.00", "ultra": "FALSE"}, {"id": "196", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. прозорий 32,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "прозорий", "thickness": "32.00", "width": "2100.00", "length": "6000.00", "priceEURO": "35.87", "weight": "3.20", "ultra": "FALSE"}, {"id": "197", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. кольоровий 4,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.24", "weight": "0.70", "ultra": "FALSE"}, {"id": "198", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. кольоровий 6,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "12.95", "weight": "1.10", "ultra": "FALSE"}, {"id": "199", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. кольоровий 8,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.30", "weight": "1.30", "ultra": "FALSE"}, {"id": "200", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. кольоровий 10,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "17.66", "weight": "1.50", "ultra": "FALSE"}, {"id": "201", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. кольоровий 16,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "кольоровий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "27.07", "weight": "2.30", "ultra": "FALSE"}, {"id": "202", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. кольоровий 20,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "кольоровий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "32.96", "weight": "2.80", "ultra": "FALSE"}, {"id": "203", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. кольоровий 25,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "кольоровий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "35.31", "weight": "3.00", "ultra": "FALSE"}, {"id": "204", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр. кольоровий 32,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 1-о ст. покр.", "color": "кольоровий", "thickness": "32.00", "width": "2100.00", "length": "6000.00", "priceEURO": "37.67", "weight": "3.20", "ultra": "FALSE"}, {"id": "205", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. прозорий 4,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.08", "weight": "0.70", "ultra": "FALSE"}, {"id": "206", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. прозорий 6,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "12.70", "weight": "1.10", "ultra": "FALSE"}, {"id": "207", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. прозорий 8,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.01", "weight": "1.30", "ultra": "FALSE"}, {"id": "208", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. прозорий 10,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "17.32", "weight": "1.50", "ultra": "FALSE"}, {"id": "209", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. прозорий 16,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "прозорий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "26.56", "weight": "2.30", "ultra": "FALSE"}, {"id": "210", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. прозорий 20,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "прозорий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "32.33", "weight": "2.80", "ultra": "FALSE"}, {"id": "211", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. прозорий 25,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "прозорий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "36.95", "weight": "3.20", "ultra": "FALSE"}, {"id": "212", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. прозорий 32,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "прозорий", "thickness": "32.00", "width": "2100.00", "length": "6000.00", "priceEURO": "40.41", "weight": "3.50", "ultra": "FALSE"}, {"id": "213", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. кольоровий 4,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.49", "weight": "0.70", "ultra": "FALSE"}, {"id": "214", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. кольоровий 6,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "13.34", "weight": "1.10", "ultra": "FALSE"}, {"id": "215", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. кольоровий 8,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.76", "weight": "1.30", "ultra": "FALSE"}, {"id": "216", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. кольоровий 10,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "18.19", "weight": "1.50", "ultra": "FALSE"}, {"id": "217", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. кольоровий 16,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "кольоровий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "27.89", "weight": "2.30", "ultra": "FALSE"}, {"id": "218", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. кольоровий 20,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "кольоровий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "33.95", "weight": "2.80", "ultra": "FALSE"}, {"id": "219", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. кольоровий 25,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "кольоровий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "38.80", "weight": "3.20", "ultra": "FALSE"}, {"id": "220", "name": "СПК ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр. кольоровий 32,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"PREMIUM\" - 10 років 2-о ст. покр.", "color": "кольоровий", "thickness": "32.00", "width": "2100.00", "length": "6000.00", "priceEURO": "42.43", "weight": "3.50", "ultra": "FALSE"}, {"id": "221", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. прозорий 4,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "8.97", "weight": "0.80", "ultra": "FALSE"}, {"id": "222", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. прозорий 6,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "14.57", "weight": "1.30", "ultra": "FALSE"}, {"id": "223", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. прозорий 8,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "16.82", "weight": "1.50", "ultra": "FALSE"}, {"id": "224", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. прозорий 10,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "19.06", "weight": "1.70", "ultra": "FALSE"}, {"id": "225", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. прозорий 16,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "прозорий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "28.03", "weight": "2.50", "ultra": "FALSE"}, {"id": "226", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. прозорий 20,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "прозорий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "33.63", "weight": "3.00", "ultra": "FALSE"}, {"id": "227", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. прозорий 25,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "прозорий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "39.24", "weight": "3.50", "ultra": "FALSE"}, {"id": "228", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. прозорий 32,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "прозорий", "thickness": "32.00", "width": "2100.00", "length": "6000.00", "priceEURO": "42.60", "weight": "3.80", "ultra": "FALSE"}, {"id": "229", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. кольоровий 4,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "9.42", "weight": "0.80", "ultra": "FALSE"}, {"id": "230", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. кольоровий 6,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.30", "weight": "1.30", "ultra": "FALSE"}, {"id": "231", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. кольоровий 8,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "17.66", "weight": "1.50", "ultra": "FALSE"}, {"id": "232", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. кольоровий 10,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "20.01", "weight": "1.70", "ultra": "FALSE"}, {"id": "233", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. кольоровий 16,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "кольоровий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "29.43", "weight": "2.50", "ultra": "FALSE"}, {"id": "234", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. кольоровий 20,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "кольоровий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "35.31", "weight": "3.00", "ultra": "FALSE"}, {"id": "235", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. кольоровий 25,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "кольоровий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "41.20", "weight": "3.50", "ultra": "FALSE"}, {"id": "236", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр. кольоровий 32,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 1-о ст. покр.", "color": "кольоровий", "thickness": "32.00", "width": "2100.00", "length": "6000.00", "priceEURO": "44.73", "weight": "3.80", "ultra": "FALSE"}, {"id": "237", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. прозорий 4,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "прозорий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "9.24", "weight": "0.80", "ultra": "FALSE"}, {"id": "238", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. прозорий 6,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "прозорий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.01", "weight": "1.30", "ultra": "FALSE"}, {"id": "239", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. прозорий 8,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "прозорий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "17.32", "weight": "1.50", "ultra": "FALSE"}, {"id": "240", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. прозорий 10,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "прозорий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "19.63", "weight": "1.70", "ultra": "FALSE"}, {"id": "241", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. прозорий 16,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "прозорий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "28.87", "weight": "2.50", "ultra": "FALSE"}, {"id": "242", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. прозорий 20,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "прозорий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "34.64", "weight": "3.00", "ultra": "FALSE"}, {"id": "243", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. прозорий 25,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "прозорий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "40.41", "weight": "3.50", "ultra": "FALSE"}, {"id": "244", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. прозорий 32,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "прозорий", "thickness": "32.00", "width": "2100.00", "length": "6000.00", "priceEURO": "43.88", "weight": "3.80", "ultra": "FALSE"}, {"id": "245", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. кольоровий 4,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "кольоровий", "thickness": "4.00", "width": "2100.00", "length": "6000.00", "priceEURO": "9.50", "weight": "0.80", "ultra": "FALSE"}, {"id": "246", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. кольоровий 6,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "кольоровий", "thickness": "6.00", "width": "2100.00", "length": "6000.00", "priceEURO": "15.43", "weight": "1.30", "ultra": "FALSE"}, {"id": "247", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. кольоровий 8,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "кольоровий", "thickness": "8.00", "width": "2100.00", "length": "6000.00", "priceEURO": "17.81", "weight": "1.50", "ultra": "FALSE"}, {"id": "248", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. кольоровий 10,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "кольоровий", "thickness": "10.00", "width": "2100.00", "length": "6000.00", "priceEURO": "20.18", "weight": "1.70", "ultra": "FALSE"}, {"id": "249", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. кольоровий 16,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "кольоровий", "thickness": "16.00", "width": "2100.00", "length": "6000.00", "priceEURO": "29.68", "weight": "2.50", "ultra": "FALSE"}, {"id": "250", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. кольоровий 20,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "кольоровий", "thickness": "20.00", "width": "2100.00", "length": "6000.00", "priceEURO": "35.61", "weight": "3.00", "ultra": "FALSE"}, {"id": "251", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. кольоровий 25,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "кольоровий", "thickness": "25.00", "width": "2100.00", "length": "6000.00", "priceEURO": "41.55", "weight": "3.50", "ultra": "FALSE"}, {"id": "252", "name": "СПК ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр. кольоровий 32,00 мм", "group": "СПК", "country": "Чехія", "brand": "ARLA PLAST \"ELIT\" - 15 років 2-ох ст. покр.", "color": "кольоровий", "thickness": "32.00", "width": "2100.00", "length": "6000.00", "priceEURO": "45.11", "weight": "3.80", "ultra": "FALSE"}, {"id": "253", "name": "МПК ARLA PLAST \"ELITE\" - 15 років прозорий 2,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "прозорий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "24.38", "weight": "2.40", "ultra": "FALSE"}, {"id": "254", "name": "МПК ARLA PLAST \"ELITE\" - 15 років прозорий 3,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "прозорий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "36.58", "weight": "3.60", "ultra": "FALSE"}, {"id": "255", "name": "МПК ARLA PLAST \"ELITE\" - 15 років прозорий 4,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "прозорий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "48.77", "weight": "4.80", "ultra": "FALSE"}, {"id": "256", "name": "МПК ARLA PLAST \"ELITE\" - 15 років прозорий 5,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "прозорий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "60.96", "weight": "6.00", "ultra": "FALSE"}, {"id": "257", "name": "МПК ARLA PLAST \"ELITE\" - 15 років прозорий 6,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "прозорий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "73.15", "weight": "7.20", "ultra": "FALSE"}, {"id": "258", "name": "МПК ARLA PLAST \"ELITE\" - 15 років прозорий 8,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "прозорий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "97.54", "weight": "9.60", "ultra": "FALSE"}, {"id": "259", "name": "МПК ARLA PLAST \"ELITE\" - 15 років прозорий 10,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "прозорий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "121.92", "weight": "12.00", "ultra": "FALSE"}, {"id": "260", "name": "МПК ARLA PLAST \"ELITE\" - 15 років прозорий 12,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "прозорий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "146.31", "weight": "14.40", "ultra": "FALSE"}, {"id": "261", "name": "МПК ARLA PLAST \"ELITE\" - 15 років кольоровий 2,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "2.00", "width": "2050.00", "length": "3050.00", "priceEURO": "25.60", "weight": "2.40", "ultra": "FALSE"}, {"id": "262", "name": "МПК ARLA PLAST \"ELITE\" - 15 років кольоровий 3,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "3.00", "width": "2050.00", "length": "3050.00", "priceEURO": "38.41", "weight": "3.60", "ultra": "FALSE"}, {"id": "263", "name": "МПК ARLA PLAST \"ELITE\" - 15 років кольоровий 4,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "4.00", "width": "2050.00", "length": "3050.00", "priceEURO": "51.21", "weight": "4.80", "ultra": "FALSE"}, {"id": "264", "name": "МПК ARLA PLAST \"ELITE\" - 15 років кольоровий 5,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "5.00", "width": "2050.00", "length": "3050.00", "priceEURO": "64.01", "weight": "6.00", "ultra": "FALSE"}, {"id": "265", "name": "МПК ARLA PLAST \"ELITE\" - 15 років кольоровий 6,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "6.00", "width": "2050.00", "length": "3050.00", "priceEURO": "76.81", "weight": "7.20", "ultra": "FALSE"}, {"id": "266", "name": "МПК ARLA PLAST \"ELITE\" - 15 років кольоровий 8,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "8.00", "width": "2050.00", "length": "3050.00", "priceEURO": "102.42", "weight": "9.60", "ultra": "FALSE"}, {"id": "267", "name": "МПК ARLA PLAST \"ELITE\" - 15 років кольоровий 10,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "10.00", "width": "2050.00", "length": "3050.00", "priceEURO": "128.02", "weight": "12.00", "ultra": "FALSE"}, {"id": "268", "name": "МПК ARLA PLAST \"ELITE\" - 15 років кольоровий 12,00 мм", "group": "МПК", "country": "Швеція", "brand": "ARLA PLAST \"ELITE\" - 15 років", "color": "кольоровий", "thickness": "12.00", "width": "2050.00", "length": "3050.00", "priceEURO": "153.63", "weight": "14.40", "ultra": "FALSE"}];
+
+// Дата останнього оновлення даних
+const DATA_UPDATED = '07.05.2026';
+const EURO_RATE = 44.5; // TODO: підтягувати з окремої вкладки
+
+// Розміри листів по групах (в мм)
+const GROUP_SIZES = {
+  'МПК': ['2050×3050', '2050×6100'],
+  'Акрил': ['2050×3050'],
+  'СПК': ['2100×3000', '2100×6000', '2100×12000'],
+};
+const DEFAULT_SIZES = ['2050×3050', '2100×6000'];
+
+// Демо знижки (в реальності братимуться з профілю клієнта)
+const CLIENT_DISCOUNTS = {
+  'СПК': 10,
+  'МПК': 8,
+  'Акрил': 5,
+};
+
+// ===================== STATE =====================
+let allProducts = [];
+let filtered = [];
+let cart = [];
+
+// ===================== LOAD DATA =====================
+async function loadData() {
+  try {
+    allProducts = EMBEDDED_PRODUCTS;
+    if (!allProducts.length) throw new Error('empty');
+    document.getElementById('rateDisplay').textContent = EURO_RATE.toFixed(2);
+    // Показуємо дату оновлення
+    const statsBar = document.querySelector('.stats-bar');
+    if (statsBar) {
+      const dateEl = document.createElement('div');
+      dateEl.style.cssText = 'font-size:11px;color:var(--text3);';
+      dateEl.textContent = `Дані від: ${DATA_UPDATED}`;
+      statsBar.appendChild(dateEl);
+    }
+    populateFilters();
+    applyFilters();
+  } catch(e) {
+    if (allProducts.length === 0) throw new Error('empty');
+    document.getElementById('rateDisplay').textContent = EURO_RATE.toFixed(2);
+    populateFilters();
+    applyFilters();
+  } catch(e) {
+    const isNotCSV = e.message === 'not_csv';
+    const isEmpty = e.message === 'empty';
+    document.getElementById('tableBody').innerHTML = `
+      <tr><td colspan="9">
+        <div class="empty">
+          <div style="font-size:32px;margin-bottom:12px;">⚠️</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px;">
+            ${isNotCSV || e.message.includes('403') ? 'Таблиця не опублікована як CSV' : isEmpty ? 'Таблиця порожня' : 'Не вдалось завантажити прайс'}
+          </div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6;max-width:420px;margin:0 auto;">
+            ${isNotCSV || e.message.includes('403')
+              ? 'Відкрий Google Sheets → <b>Файл → Поділитись → Опублікувати в інтернеті</b><br>Обери вкладку з товарами, формат <b>CSV</b> → Опублікувати → скопіюй посилання.'
+              : 'Перевір підключення до інтернету або оновіть посилання на таблицю.'}
+          </div>
+        </div>
+      </td></tr>`;
+  }
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  return lines.slice(1).map(line => {
+    const vals = [];
+    let cur = '', inQ = false;
+    for (let ch of line) {
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+      else cur += ch;
+    }
+    vals.push(cur.trim());
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (vals[i] || '').replace(/^"|"$/g, '').trim());
+    return obj;
+  }).filter(r => r.id && r.name);
+}
+
+// ===================== FILTERS =====================
+function populateFilters() {
+  const unique = (key) => [...new Set(allProducts.map(p => p[key]).filter(Boolean))].sort();
+  fillSelect('fGroup', unique('group'));
+  fillSelect('fBrand', unique('brand'));
+  fillSelect('fColor', unique('color'));
+  fillSelect('fThickness', unique('thickness').sort((a,b) => parseFloat(a)-parseFloat(b)));
+}
+
+function fillSelect(id, options) {
+  const sel = document.getElementById(id);
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">Всі</option>' +
+    options.map(o => `<option value="${o}">${o}</option>`).join('');
+  sel.value = cur;
+}
+
+function applyFilters() {
+  const s = document.getElementById('fSearch').value.toLowerCase();
+  const g = document.getElementById('fGroup').value;
+  const b = document.getElementById('fBrand').value;
+  const c = document.getElementById('fColor').value;
+  const t = document.getElementById('fThickness').value;
+
+  filtered = allProducts.filter(p => {
+    if (s && !p.name.toLowerCase().includes(s) && !p.brand.toLowerCase().includes(s)) return false;
+    if (g && p.group !== g) return false;
+    if (b && p.brand !== b) return false;
+    if (c && p.color !== c) return false;
+    if (t && p.thickness !== t) return false;
+    return true;
+  });
+
+  renderTable();
+}
+
+function resetFilters() {
+  ['fSearch','fGroup','fBrand','fColor','fThickness'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = '';
+  });
+  applyFilters();
+}
+
+// ===================== TABLE RENDER =====================
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  document.getElementById('visibleCount').textContent = filtered.length;
+
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="9"><div class="empty">🔍 Нічого не знайдено. Спробуйте інші фільтри.</div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map((p, idx) => {
+    const sizes = GROUP_SIZES[p.group] || DEFAULT_SIZES;
+    const discount = CLIENT_DISCOUNTS[p.group] || 0;
+    const sizeOptions = sizes.map(s => `<option value="${s}">${s} мм</option>`).join('');
+
+    return `<tr id="row-${idx}">
+      <td class="td-name">
+        ${p.name}
+        <div class="sub">${p.brand || ''} · ${p.color || ''}</div>
+      </td>
+      <td><span class="badge-group">${p.group || '—'}</span></td>
+      <td class="td-mono">${p.thickness ? p.thickness+' мм' : '—'}</td>
+      <td class="td-mono">${p.weight ? p.weight+' кг' : '—'}</td>
+      <td>
+        <div class="size-select-wrap">
+          <select id="size-${idx}" onchange="onSizeChange(${idx})">
+            ${sizeOptions}
+            <option value="custom">✂️ Шматок (довільний)</option>
+          </select>
+          <div id="custom-${idx}" style="display:none;">
+            <div class="size-custom">
+              <input type="number" id="cw-${idx}" placeholder="мм" min="100" oninput="calcRow(${idx})">
+              <span class="sep">×</span>
+              <input type="number" id="cl-${idx}" placeholder="мм" min="100" oninput="calcRow(${idx})">
+            </div>
+            <div class="piece-note">⚠️ Менеджер підтвердить наявність</div>
+          </div>
+        </div>
+      </td>
+      <td class="td-price" id="price-${idx}">—</td>
+      <td>
+        ${discount > 0 
+          ? `<span style="font-size:12px;font-weight:700;color:var(--accent2)">−${discount}%</span>` 
+          : `<span style="color:var(--text3);font-size:12px">—</span>`}
+      </td>
+      <td class="td-discount" id="dprice-${idx}">—</td>
+      <td class="add-cell">
+        <input class="qty-input" type="number" id="qty-${idx}" value="1" min="1" style="width:52px;" oninput="calcRow(${idx})">
+        <button class="add-btn" onclick="addToCart(${idx})">+ Додати</button>
+      </td>
+    </tr>`;
+  }).join('');
+
+  // calc initial prices
+  filtered.forEach((_, idx) => calcRow(idx));
+}
+
+function onSizeChange(idx) {
+  const sel = document.getElementById(`size-${idx}`);
+  const customDiv = document.getElementById(`custom-${idx}`);
+  if (sel.value === 'custom') {
+    customDiv.style.display = 'block';
+  } else {
+    customDiv.style.display = 'none';
+    calcRow(idx);
+  }
+}
+
+function getSizeM2(idx) {
+  const sel = document.getElementById(`size-${idx}`);
+  if (sel.value === 'custom') {
+    const w = parseFloat(document.getElementById(`cw-${idx}`).value) || 0;
+    const l = parseFloat(document.getElementById(`cl-${idx}`).value) || 0;
+    return { m2: (w * l) / 1_000_000, isCustom: true, label: `${w}×${l} мм` };
+  }
+  const parts = sel.value.replace(' мм','').split('×').map(Number);
+  return { m2: (parts[0] * parts[1]) / 1_000_000, isCustom: false, label: sel.value + ' мм' };
+}
+
+function calcRow(idx) {
+  const p = filtered[idx];
+  if (!p) return;
+  const { m2, isCustom } = getSizeM2(idx);
+  const priceEuro = parseFloat(p.priceEURO) || 0;
+  const sheetPrice = priceEuro * EURO_RATE * m2;
+  const discount = isCustom ? 0 : (CLIENT_DISCOUNTS[p.group] || 0);
+  const discountPrice = sheetPrice * (1 - discount / 100);
+  const qty = parseInt(document.getElementById(`qty-${idx}`)?.value) || 1;
+
+  const priceEl = document.getElementById(`price-${idx}`);
+  const dpriceEl = document.getElementById(`dprice-${idx}`);
+  if (priceEl) priceEl.textContent = m2 > 0 ? fmt(sheetPrice * qty) + ' грн' : '—';
+  if (dpriceEl) dpriceEl.textContent = m2 > 0 ? fmt(discountPrice * qty) + ' грн' : '—';
+}
+
+// ===================== CART =====================
+function addToCart(idx) {
+  const p = filtered[idx];
+  const { m2, isCustom, label } = getSizeM2(idx);
+  if (m2 <= 0) { showToast('⚠️ Вкажіть розмір аркуша'); return; }
+
+  const qty = parseInt(document.getElementById(`qty-${idx}`).value) || 1;
+  const priceEuro = parseFloat(p.priceEURO) || 0;
+  const sheetPrice = priceEuro * EURO_RATE * m2;
+  const discount = isCustom ? 0 : (CLIENT_DISCOUNTS[p.group] || 0);
+  const discountPrice = sheetPrice * (1 - discount / 100);
+
+  cart.push({
+    id: Date.now(),
+    name: p.name,
+    group: p.group,
+    brand: p.brand,
+    color: p.color,
+    thickness: p.thickness,
+    size: label,
+    isCustom,
+    qty,
+    priceEuro,
+    m2,
+    sheetPrice,
+    discount,
+    discountPrice,
+    totalRetail: sheetPrice * qty,
+    totalDiscount: discountPrice * qty,
+  });
+
+  updateCartUI();
+  showToast(`✓ Додано: ${p.name.substring(0,40)}...`);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  document.getElementById('cartCount').textContent = cart.length;
+  const body = document.getElementById('drawerBody');
+  const hasItems = cart.length > 0;
+
+  document.getElementById('pdfClientBtn').disabled = !hasItems;
+  document.getElementById('pdfInternalBtn').disabled = !hasItems;
+
+  if (!hasItems) {
+    body.innerHTML = '<div class="cart-empty">Додайте позиції з прайсу</div>';
+    document.getElementById('totalsBlock').innerHTML = '';
+    return;
+  }
+
+  body.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div>
+        <div class="cart-item-name">
+          ${item.name}
+          ${item.isCustom ? '<span class="piece-tag">Шматок</span>' : ''}
+        </div>
+        <div class="cart-item-details">
+          ${item.size} · ${item.qty} шт · знижка ${item.discount}%
+        </div>
+      </div>
+      <div class="cart-item-right">
+        <div class="cart-item-price">${fmt(item.totalDiscount)} грн</div>
+        <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕ видалити</button>
+      </div>
+    </div>
+  `).join('');
+
+  const totalRetail = cart.reduce((s, i) => s + i.totalRetail, 0);
+  const totalDiscount = cart.reduce((s, i) => s + i.totalDiscount, 0);
+  const saved = totalRetail - totalDiscount;
+
+  document.getElementById('totalsBlock').innerHTML = `
+    <div class="total-row"><span>Роздрібна ціна</span><span class="val">${fmt(totalRetail)} грн</span></div>
+    ${saved > 0 ? `<div class="total-row" style="color:var(--accent2)"><span>Ваша знижка</span><span class="val">−${fmt(saved)} грн</span></div>` : ''}
+    <div class="total-row main"><span>Разом до сплати</span><span class="val">${fmt(totalDiscount)} грн</span></div>
+  `;
+}
+
+function toggleDrawer() {
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+
+// ===================== PDF =====================
+function generatePDF(type) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+
+  // Title
+  const isClient = type === 'client';
+  const title = isClient ? 'Прорахунок для клієнта' : 'Внутрішній прорахунок';
+  const date = new Date().toLocaleDateString('uk-UA');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.text('Terner Group — ' + title, 14, 18);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.text(`Дата: ${date}   Курс EUR: ${EURO_RATE} грн`, 14, 26);
+
+  const head = isClient
+    ? [['№', 'Назва', 'Розмір', 'К-сть', 'Ціна/лист (грн)', 'Сума (грн)']]
+    : [['№', 'Назва', 'Розмір', 'К-сть', 'Роздрібна', 'Знижка', 'Ціна зі зниж.', 'Сума']];
+
+  const body = cart.map((item, i) => {
+    const retail = fmt(item.sheetPrice);
+    const disc = fmt(item.discountPrice);
+    const total = fmt(item.totalDiscount);
+    const totalR = fmt(item.totalRetail);
+    if (isClient) {
+      return [i+1, item.name, item.size, item.qty, fmt(item.sheetPrice), totalR];
+    } else {
+      return [i+1, item.name, item.size, item.qty, retail, item.discount+'%', disc, total];
+    }
+  });
+
+  // Totals row
+  const totalDiscount = cart.reduce((s, i) => s + i.totalDiscount, 0);
+  const totalRetail = cart.reduce((s, i) => s + i.totalRetail, 0);
+
+  if (isClient) {
+    body.push(['', '', '', '', 'РАЗОМ:', fmt(totalRetail) + ' грн']);
+  } else {
+    body.push(['', '', '', '', '', '', 'РАЗОМ:', fmt(totalDiscount) + ' грн']);
+  }
+
+  doc.autoTable({
+    head, body,
+    startY: 32,
+    styles: { font: 'helvetica', fontSize: 9, cellPadding: 3 },
+    headStyles: { fillColor: [37, 99, 235], textColor: 255, fontStyle: 'bold' },
+    alternateRowStyles: { fillColor: [248, 248, 246] },
+    columnStyles: { 1: { cellWidth: 80 } },
+  });
+
+  if (!isClient) {
+    doc.setFontSize(8);
+    doc.setTextColor(150);
+    doc.text('КОНФІДЕНЦІЙНО — тільки для внутрішнього використання', 14, doc.lastAutoTable.finalY + 8);
+  }
+
+  doc.save(`прорахунок_${isClient ? 'клієнт' : 'внутрішній'}_${date.replace(/\./g,'-')}.pdf`);
+}
+
+// ===================== UTILS =====================
+function fmt(n) {
+  return Number(n).toLocaleString('uk-UA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ===================== INIT =====================
+loadData();
+</script>
+</body>
+</html>
